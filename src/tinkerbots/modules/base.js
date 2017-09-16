@@ -9,6 +9,6 @@ exports.BaseModule = class {
   }
 
   getTopic() {
-    return `${this.tinkerbot.getTopic()}/${this.TYPE}/${this.id}`;
+    return `${this.tinkerbot.getTopic()}`;
   }
 }

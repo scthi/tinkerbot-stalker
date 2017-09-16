@@ -5,11 +5,16 @@ exports.BaseSensor = class extends BaseModule {
     super(id, tinkerbot);
   }
 
-  init() {
-    broker.subscribe(this.getTopic());
+  getTopic() {
+    return `${super.getTopic()}/status/${this.TYPE}/${this.id}/`;
   }
 
-  getTopic() {
-    return `${super.getTopic()}/#`;
+  subscribe(callback) {
+    this.broker.subscribe(this.getTopic());
+    this.broker.on('message', (topic, message, packet) => {
+      if (this.getTopic() === packet.topic) {
+        callback(packet.payload);
+      }
+    });
   }
 }

@@ -17,7 +17,7 @@ describe('Twister', () => {
 
   describe('getTopic', () => {
     it('returns its topic', () => {
-      expect(modul.getTopic()).to.equal('tinkerbots/0/control/twister/0/');
+      expect(modul.getTopic()).to.equal('tinkerbots/0/control/twister/0');
     });
   });
 });

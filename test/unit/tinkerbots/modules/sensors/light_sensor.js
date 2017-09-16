@@ -17,7 +17,7 @@ describe('LightSensor', () => {
 
   describe('getTopic', () => {
     it('returns its topic', () => {
-      expect(modul.getTopic()).to.equal('tinkerbots/0/control/light_sensor/0/#');
+      expect(modul.getTopic()).to.equal('tinkerbots/0/status/light_sensor/0/');
     });
   });
 });

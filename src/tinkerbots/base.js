@@ -14,7 +14,7 @@ exports.Tinkerbot = class {
   }
 
   getTopic() {
-    return `tinkerbots/${this.id}/control`;
+    return `tinkerbots/${this.id}`;
   }
 
   addModule(module) {

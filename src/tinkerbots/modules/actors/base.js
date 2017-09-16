@@ -6,6 +6,10 @@ exports.BaseActor = class extends BaseModule {
   }
 
   getTopic() {
-    return `${super.getTopic()}/`;
+    return `${super.getTopic()}/control/${this.TYPE}/${this.id}`;
+  }
+
+  publish(param, message) {
+    this.broker.publish(`${this,getTopic()}/${param}}`, message);
   }
 }

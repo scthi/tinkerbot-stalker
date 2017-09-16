@@ -17,7 +17,7 @@ describe('Motor', () => {
 
   describe('getTopic', () => {
     it('returns its topic', () => {
-      expect(modul.getTopic()).to.equal('tinkerbots/0/control/motor/0/');
+      expect(modul.getTopic()).to.equal('tinkerbots/0/control/motor/0');
     });
   });
 });

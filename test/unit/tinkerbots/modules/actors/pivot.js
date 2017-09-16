@@ -17,7 +17,7 @@ describe('Pivot', () => {
 
   describe('getTopic', () => {
     it('returns its topic', () => {
-      expect(modul.getTopic()).to.equal('tinkerbots/0/control/pivot/0/');
+      expect(modul.getTopic()).to.equal('tinkerbots/0/control/pivot/0');
     });
   });
 });

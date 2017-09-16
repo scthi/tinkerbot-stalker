@@ -13,7 +13,7 @@ describe('Tinkerbot', () => {
 
   describe('getTopic', () => {
     it('returns part of the tinkerbot\'s topic', () => {
-      expect(tinkerbot.getTopic()).to.equal('tinkerbots/0/control');
+      expect(tinkerbot.getTopic()).to.equal('tinkerbots/0');
     });
   });
 });
