@@ -6,7 +6,7 @@ exports.BaseSensor = class extends BaseModule {
   }
 
   getTopic() {
-    return `${super.getTopic()}/status/${this.TYPE}/${this.id}/`;
+    return `${super.getTopic()}/status/${this.constructor.TYPE}/${this.id}/`;
   }
 
   subscribe(callback) {

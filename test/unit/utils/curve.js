@@ -1,5 +1,5 @@
 let expect = require('chai').expect;
-let Curve = require('../../../src/utils/curve');
+let { Curve } = require('../../../src/utils/curve');
 
 describe('Curve', () => {
   describe('calculateSteeringLock', () => {
@@ -12,7 +12,7 @@ describe('Curve', () => {
   describe('guardAgainstDivisionByZero', () => {
     it('throws exception when trying to divide by zero', () => {
       let curve = new Curve();
-      expect(curve.calculateSteeringLock(1,2,0)).to.throw(Error, 'Target length needs to be > 0');
+      expect(() => curve.calculateSteeringLock(1,2,0)).to.throw(Error, 'Target length needs to be > 0');
     });
   });
 });

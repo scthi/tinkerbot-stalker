@@ -10,6 +10,7 @@ describe('LightSensor', () => {
     it('instantiates a module, adds it to its tinkerbot and inits', () => {
       expect(modul).to.have.own.property('id', 0);
       expect(modul).to.have.own.property('tinkerbot', tinkerbot);
+      expect(modul.constructor.TYPE).to.equal('light_sensor');
       expect(tinkerbot).to.have.own.property('modules');
       expect(tinkerbot.hasModule(modul)).to.be.true;
     });

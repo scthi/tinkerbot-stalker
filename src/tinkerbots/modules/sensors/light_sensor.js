@@ -1,8 +1,16 @@
 let { BaseSensor } = require('./base');
 
-exports.LightSensor = class extends BaseSensor {
+class LightSensor extends BaseSensor {
   constructor(id, tinkerbot){
     super(id, tinkerbot);
-    this.TYPE = "light_sensor";
   }
 }
+
+Object.defineProperty(LightSensor, 'TYPE', {
+    value: 'light_sensor',
+    writable : false,
+    enumerable : true,
+    configurable : false
+});
+
+module.exports = { LightSensor };

@@ -1,8 +1,16 @@
 let { BaseActor } = require('./base');
 
-exports.Motor = class extends BaseActor {
+class Motor extends BaseActor {
   constructor(id, tinkerbot) {
     super(id, tinkerbot);
-    this.TYPE = "motor";
   }
 }
+
+Object.defineProperty(Motor, 'TYPE', {
+    value: 'motor',
+    writable : false,
+    enumerable : true,
+    configurable : false
+});
+
+module.exports = { Motor };

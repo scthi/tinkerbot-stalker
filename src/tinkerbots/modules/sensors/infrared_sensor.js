@@ -1,8 +1,20 @@
 let { BaseSensor } = require('./base');
 
-exports.InfraredSensor = class extends BaseSensor {
+class InfraredSensor extends BaseSensor {
   constructor(id, tinkerbot){
     super(id, tinkerbot);
-    this.TYPE = "ir_sensor";
+  }
+
+  convertPayloadToMillimeters(payload) {
+    return payload / 3.6; // 180 = 50mm
   }
 }
+
+Object.defineProperty(InfraredSensor, 'TYPE', {
+    value: 'ir_sensor',
+    writable : false,
+    enumerable : true,
+    configurable : false
+});
+
+module.exports = { InfraredSensor };

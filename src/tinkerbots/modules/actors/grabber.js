@@ -1,8 +1,16 @@
 let { BaseActor } = require('./base');
 
-exports.Grabber = class extends BaseActor {
+class Grabber extends BaseActor {
   constructor(id, tinkerbot){
     super(id, tinkerbot);
-    this.TYPE = "grabber";
   }
 }
+
+Object.defineProperty(Grabber, 'TYPE', {
+    value: 'grabber',
+    writable : false,
+    enumerable : true,
+    configurable : false
+});
+
+module.exports = { Grabber };

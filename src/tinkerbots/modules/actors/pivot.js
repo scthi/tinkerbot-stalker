@@ -1,8 +1,16 @@
 let { BaseActor } = require('./base');
 
-exports.Pivot = class extends BaseActor {
+class Pivot extends BaseActor {
   constructor(id, tinkerbot){
     super(id, tinkerbot);
-    this.TYPE = "pivot";
   }
 }
+
+Object.defineProperty(Pivot, 'TYPE', {
+    value: 'pivot',
+    writable : false,
+    enumerable : true,
+    configurable : false
+});
+
+module.exports = { Pivot };

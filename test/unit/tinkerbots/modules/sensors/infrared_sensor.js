@@ -10,6 +10,7 @@ describe('InfraredSensor', () => {
     it('instantiates a module, adds it to its tinkerbot and inits', () => {
       expect(modul).to.have.own.property('id', 0);
       expect(modul).to.have.own.property('tinkerbot', tinkerbot);
+      expect(modul.constructor.TYPE).to.equal('ir_sensor');
       expect(tinkerbot).to.have.own.property('modules');
       expect(tinkerbot.hasModule(modul)).to.be.true;
     });
@@ -18,6 +19,12 @@ describe('InfraredSensor', () => {
   describe('getTopic', () => {
     it('returns its topic', () => {
       expect(modul.getTopic()).to.equal('tinkerbots/0/status/ir_sensor/0/');
+    });
+  });
+
+  describe('convertPayloadToMillimeters', () => {
+    it('converts payload correctly to mm', () => {
+      expect(modul.convertPayloadToMillimeters(180)).to.equal(50);
     });
   });
 });
