@@ -1,0 +1,29 @@
+{
+  "name": "tinkerbot-stalker",
+  "version": "0.0.1",
+  "description": "The tinkerbot stalker follows you around.",
+  "main": "index.js",
+  "dependencies": {
+    "mqtt": "^2.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtd17-tinkerbells-for-the-win/tinkerbot-stalker.git"
+  },
+  "keywords": [
+    "node.js",
+    "MQTT",
+    "IoT",
+    "hackathon"
+  ],
+  "author": "Stephanie Feddern, Stephan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wtd17-tinkerbells-for-the-win/tinkerbot-stalker/issues"
+  },
+  "homepage": "https://github.com/wtd17-tinkerbells-for-the-win/tinkerbot-stalker#readme"
+}
