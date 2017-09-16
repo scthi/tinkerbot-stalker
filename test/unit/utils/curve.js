@@ -5,7 +5,7 @@ let Curve = require("../../../src/utils/curve");
 describe("Curve", () => {
   describe('calculation', () => {
     let curve = new Curve();
-    assert.equal(curve.calculateSteeringLock(125,90,500), 26.551262509077013);
+    assert.equal(curve.calculateSteeringLock(125,90,1000), 12.914639406356505);
   });
   describe('guardAgainstDivisionByZero', () => {
     let curve = new Curve();
