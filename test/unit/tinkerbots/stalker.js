@@ -1,9 +1,10 @@
-let expect = require("chai").expect;
-let Tinkerbot = require("../../../src/tinkerbots/stalker.js");
+let expect = require('chai').expect;
+let { TinkerbotStalker } = require('../../../src/tinkerbots/stalker.js');
 
-describe("Tinkerbot", () => {
+describe('TinkerbotStalker', () => {
   describe('init', () => {
-    let tinkerbot = new Tinkerbot(0);
+    let tinkerbot = new TinkerbotStalker(0);
     expect(tinkerbot).to.have.a.property('id', 0);
+    expect(tinkerbot).to.have.own.property('broker');
   });
 });

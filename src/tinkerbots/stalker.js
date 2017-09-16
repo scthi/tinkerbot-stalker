@@ -1,6 +1,6 @@
-let Tinkerbot = require('./base.js');
+let { Tinkerbot } = require('./base.js');
 
-class TinkerbotStalker extends Tinkerbot {
+exports.TinkerbotStalker = class extends Tinkerbot {
   constructor(id) {
     super(id);
 
@@ -11,5 +11,3 @@ class TinkerbotStalker extends Tinkerbot {
 
   }
 }
-
-module.exports = TinkerbotStalker;
