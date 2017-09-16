@@ -8,10 +8,6 @@ exports.BaseModule = class {
     tinkerbot.addModule(this);
   }
 
-  init() {
-    broker.subscribe(this.getTopic());
-  }
-
   getTopic() {
     return `${this.tinkerbot.getTopic()}/${this.TYPE}/${this.id}`;
   }

@@ -4,6 +4,5 @@ exports.Pivot = class extends BaseActor {
   constructor(id, tinkerbot){
     super(id, tinkerbot);
     this.TYPE = "pivot";
-    this.init();
   }
 }
