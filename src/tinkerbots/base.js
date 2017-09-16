@@ -13,6 +13,10 @@ exports.Tinkerbot = class {
     this.modules = [];
   }
 
+  getTopic() {
+    return `tinkerbots/${this.id}/control`;
+  }
+
   addModule(module) {
     if (!this.modules.includes(module)) {
       this.modules.push(module);

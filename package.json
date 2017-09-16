@@ -8,7 +8,6 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-spies": "^0.7.1",
     "mocha": "^3.5.3"
   },
   "scripts": {
@@ -25,7 +24,7 @@
     "IoT",
     "hackathon"
   ],
-  "author": "Stephanie Feddern, Stephan",
+  "author": "Stephanie Feddern, Stephan Müller",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wtd17-tinkerbells-for-the-win/tinkerbot-stalker/issues"
