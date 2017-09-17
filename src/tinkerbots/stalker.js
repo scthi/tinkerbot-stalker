@@ -13,16 +13,25 @@ class TinkerbotStalker extends Tinkerbot {
   }
 
   init() {
+    initInfraredSensor();
+    let pivot = new Pivot(0, this);
+    let motor1 = new Motor(0, this);
+    let motor2 = new Motor(1, this);
+  }
+
+  initInfraredSensor() {
     let infrared_sensor = new InfraredSensor(0, this);
     infrared_sensor.subscribe((payload) => {
-      if (payload >= 100) {
+      let distances = infrared_sensor.determineDistance(payload);
+      let threshold = 120;
+      let timesThresholdReached = distances.reduce((previous, distance) => {
+        return previous + distance;
+      }, 0);
+      if (timesThresholdReached >= threshold) {
         this.isFrontClear = false;
         this.stop();
       }
     });
-    let pivot = new Pivot(0, this);
-    let motor1 = new Motor(0, this);
-    let motor2 = new Motor(1, this);
   }
 
   move(angle, targetDistance) {
@@ -63,14 +72,14 @@ class TinkerbotStalker extends Tinkerbot {
   start() {
     let motors = this.getModules(Motor.TYPE);
     motors.forEach(motor => {
-      motor.publish('speed', 70);
+      motor.speedUpBy(20);
     });
   }
 
   stop() {
     let motors = this.getModules(Motor.TYPE);
     motors.forEach(motor => {
-      motor.publish('speed', 90);
+      motor.stop();
     });
   }
 }
@@ -90,7 +99,7 @@ Object.defineProperty(TinkerbotStalker, 'BODY_LENGTH', {
 });
 
 Object.defineProperty(TinkerbotStalker, 'SECURITY_OFFSET', {
-    value: 50, // in mm
+    value: 140,
     writable : false,
     enumerable : true,
     configurable : false

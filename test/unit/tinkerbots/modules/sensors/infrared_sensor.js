@@ -21,10 +21,4 @@ describe('InfraredSensor', () => {
       expect(modul.getTopic()).to.equal('tinkerbots/0/status/ir_sensor/0/');
     });
   });
-
-  describe('convertPayloadToMillimeters', () => {
-    xit('converts payload correctly to mm', () => {
-      expect(modul.convertPayloadToMillimeters(180)).to.equal(50);
-    });
-  });
 });
