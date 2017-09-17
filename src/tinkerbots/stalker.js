@@ -14,7 +14,7 @@ class TinkerbotStalker extends Tinkerbot {
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
     infrared_sensor.subscribe((payload) => {
-      if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
+      if (payload >= 160) {
         this.isFrontClear = false;
         this.stop();
       }
@@ -26,7 +26,7 @@ class TinkerbotStalker extends Tinkerbot {
 
   move(angle) {
     if (angle < 55 || angle > 120) {
-      console.log('not driving a hard angle (' ,anlge, ')');
+      console.log(`not driving a hard angle (' ,anlge, ')`);
       return;
     }
 
@@ -44,7 +44,9 @@ class TinkerbotStalker extends Tinkerbot {
 
   steer(angle) {
     let pivots = this.getModules(Pivot.TYPE);
-    pivots.forEach(pivot => {pivot.publish('angle', angle);});
+    pivots.forEach(pivot => {
+      pivot.publish('angle', angle);
+    });
   }
 
   start() {
