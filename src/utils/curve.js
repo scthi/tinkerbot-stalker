@@ -6,6 +6,7 @@ exports.Curve = class {
     }
     let radians = Math.asin((2 * wheelDistance * Math.sin(targetAngle)) / targetDistance);
     return radians * (180/Math.PI);
+    //return Math.asin(radians);
   }
 
 }

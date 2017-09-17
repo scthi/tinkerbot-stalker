@@ -1,27 +1,44 @@
 let { Tinkerbot } = require('./base');
 let { InfraredSensor } = require('./modules/sensors/infrared_sensor');
 let { Motor } = require('./modules/actors/motor');
+let { Pivot } = require('./modules/actors/pivot');
 
 class TinkerbotStalker extends Tinkerbot {
   constructor(id) {
     super(id);
     this.isFrontClear = true;
+    this.isStalking = false;
     this.init();
   }
 
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
     infrared_sensor.subscribe((payload) => {
-      if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
-        this.isFrontClear = false;
-        this.stop();
-      }
     });
+    let pivot = new Pivot(0, this);
+    let motor1 = new Motor(0, this);
+    let motor2 = new Motor(1, this);
   }
 
   move(angle) {
-    if (this.isFrontClear) {
-      //TODO: move to target
+    if (angle < 55 || angle > 120) {
+      console.log('not driving a hard angle (' ,anlge, ')');
+      return;
+    }
+
+    //process.exit();
+    if (this.isFrontClear && !this.isStalking) {
+      this.isStalking = true;
+      let pivots = this.getModules(Pivot.TYPE);
+      pivots.forEach(pivot => {pivot.publish('angle', angle);});
+      let stalker = this;
+      // make sure to wait to give the pivot time to steer
+      setTimeout(function() {
+        let motors = stalker.getModules(Motor.TYPE);
+        motors.forEach(motor => {
+          motor.publish('speed', '50');
+        });
+      }, 5000);
     }
   }
 

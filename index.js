@@ -10,6 +10,7 @@ ir_sensor.subscribe((payload) => {
 });
 
 let laserScan = new LaserScan(tinkerbot);
+laserScan.scan(1400, 450);
 console.log(`subscribed to laserscan`);
 
 // TODO: init RFID scanner

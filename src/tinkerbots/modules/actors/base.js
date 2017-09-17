@@ -10,6 +10,9 @@ exports.BaseActor = class extends BaseModule {
   }
 
   publish(param, payload) {
-    this.broker.publish(`${this,getTopic()}/${param}}`, payload);
+    payload = payload.toString();
+    this.broker.publish(`${this.getTopic()}/${param}`, payload, {qos: 1}, function(){
+        console.log("sent ", payload)
+    });
   }
 }
