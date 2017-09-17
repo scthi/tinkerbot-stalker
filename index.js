@@ -8,11 +8,11 @@ let ir_sensor = new InfraredSensor(0, tinkerbot);
 ir_sensor.subscribe((payload) => {
   console.log(`InfraredSensor payload: ${payload}`);
 });
-tinkerbot.start();
+//tinkerbot.start();
 
-// let laserScan = new LaserScan(tinkerbot);
-// laserScan.scan(1400, 450);
-// console.log(`subscribed to laserscan`);
+ let laserScan = new LaserScan(tinkerbot);
+ laserScan.scan(1400, 500);
+ console.log(`subscribed to laserscan`);
 
 // TODO: init RFID scanner
 // TODO: connect RFID with tinkerbot?

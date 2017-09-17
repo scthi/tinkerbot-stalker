@@ -2,7 +2,7 @@ let client = require('../connections/base')
 let { Curve } = require('./curve');
 
 const TOLERANCE = 100;
-const COVERAGE = 190;
+const COVERAGE = 180;
 const ABSOLUTE_SCANNER_DEGREE_RATIO = 1.6 / 90;
 /*
   Big pile of mud. Sorry :)
@@ -24,6 +24,9 @@ exports.LaserScan = class LaserScan {
     client.on('message', (topic, message) => {
       //if (topic == 'io/cybus/energie-campus/sick/7/laserscanner/eg/halle/scan') {
       if (topic == 'io/cybus/energie-campus/sick/3/laserscanner/og/flur/scan') {
+        if (this.stalkerbot.isStalking) {
+          // ignore messages
+        } else {
         let payload = JSON.parse(message.toString());
         console.log('minAngle=', Math.min.apply(null, payload.angles), '; maxAngle=', Math.max.apply(null, payload.angles));
         this.indicesPerDegree = payload.distances.length / COVERAGE;
@@ -50,19 +53,20 @@ exports.LaserScan = class LaserScan {
           }
         }
       }
+    }
     });
   }
 
   calcAverageAngle(currentAngle) {
     console.log('calcAverageAngle with currentAngle=', currentAngle, '; hitcount=', this.hitCount);
-    if (this.hitCount >= 10) {
+    if (this.hitCount >= 5) {
       let sum = 0.0;
       for( var i = 0; i < this.lastAngles.length; i++ ){
           sum = sum + parseFloat(this.lastAngles[i]); //don't forget to add the base
       }
       let avg = sum / this.lastAngles.length;
       this.hitCount = 0;
-      if (Math.abs(currentAngle - avg) > 20) {
+      if (Math.abs(currentAngle - avg) > 10) {
         // target moved away
       } else {
         return avg;
@@ -70,7 +74,7 @@ exports.LaserScan = class LaserScan {
 
     } else {
       this.hitCount++;
-      if (this.lastAngles.length > 80) {
+      if (this.lastAngles.length > 50) {
         this.lastAngles.shift();
       }
       this.lastAngles.push(currentAngle);
@@ -130,7 +134,7 @@ exports.LaserScan = class LaserScan {
 
   hasFoundEnoughHits(foundIndices) {
     let requiredIndices = this.getRequiredIndicesForHit();
-    return Math.abs(foundIndices - requiredIndices) < 80;
+    return Math.abs(foundIndices - requiredIndices) < 100;
   }
 
   getRequiredIndicesForHit() {

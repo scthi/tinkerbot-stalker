@@ -5,7 +5,7 @@ describe('Curve', () => {
   describe('calculateSteeringLock', () => {
     it('calculates correctly', () => {
       let curve = new Curve();
-      expect(curve.calculateSteeringLock(125,90,1000)).to.equal(12.914639406356505);
+      expect(curve.calculateSteeringLock(120,90,1000)).to.equal(12.3896677875257);
     });
   });
   describe('guardAgainstDivisionByZero', () => {

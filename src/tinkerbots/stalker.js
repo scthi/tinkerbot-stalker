@@ -35,13 +35,21 @@ class TinkerbotStalker extends Tinkerbot {
     if (this.isFrontClear && !this.isStalking) {
       this.isStalking = true;
       let normalizedPivotAngle = 90 - angle;
-      let pivotSteer = new Curve().calculateSteeringLock(TinkerbotStalker.WHEEL_DISTANCE, angle, targetDistance);
+
+      console.log('calculating pivotSteer');
+      let pivotSteer = 90 - new Curve().calculateSteeringLock(TinkerbotStalker.WHEEL_DISTANCE, normalizedPivotAngle, targetDistance);
+      console.log('steering to normalized=', normalizedPivotAngle, '; foundAngle=', angle, '; pivot=', pivotSteer);
 
       this.steer(pivotSteer);
+
       // make sure to wait to give the pivot time to steer
+      let stalker = this;
+
       setTimeout(function() {
-        this.start();
+        stalker.start();
       }, 5000);
+    } else {
+      console.log('no stalking! frontClear=', this.isFrontClear, '; isStalking=', this.isStalking);
     }
   }
 
@@ -68,7 +76,7 @@ class TinkerbotStalker extends Tinkerbot {
 }
 
 Object.defineProperty(TinkerbotStalker, 'WHEEL_DISTANCE', {
-    value: 125, // in mm
+    value: 40, // in mm
     writable : false,
     enumerable : true,
     configurable : false
