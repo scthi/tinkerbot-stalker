@@ -13,7 +13,7 @@ class TinkerbotStalker extends Tinkerbot {
   }
 
   init() {
-    initInfraredSensor();
+    this.initInfraredSensor();
     let pivot = new Pivot(0, this);
     let motor1 = new Motor(0, this);
     let motor2 = new Motor(1, this);
