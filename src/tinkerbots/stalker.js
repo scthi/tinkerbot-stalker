@@ -2,6 +2,7 @@ let { Tinkerbot } = require('./base');
 let { InfraredSensor } = require('./modules/sensors/infrared_sensor');
 let { Motor } = require('./modules/actors/motor');
 let { Pivot } = require('./modules/actors/pivot');
+let { Curve } = require('./utils/curve');
 
 class TinkerbotStalker extends Tinkerbot {
   constructor(id) {
@@ -13,7 +14,8 @@ class TinkerbotStalker extends Tinkerbot {
 
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
-    infrared_sensor.subscribe((payload) => {
+    infrared_sensor.subscribe((payload) =>
+      // TODO this logic is incomplete / inverted. Probably also related with the conversion function?
       if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
         this.isFrontClear = false;
         this.stop();
@@ -24,7 +26,7 @@ class TinkerbotStalker extends Tinkerbot {
     let motor2 = new Motor(1, this);
   }
 
-  move(angle) {
+  move(angle, targetDistance) {
     if (angle < 55 || angle > 120) {
       console.log('not driving a hard angle (' ,anlge, ')');
       return;
@@ -33,7 +35,11 @@ class TinkerbotStalker extends Tinkerbot {
     //process.exit();
     if (this.isFrontClear && !this.isStalking) {
       this.isStalking = true;
-      this.steer(angle);
+
+      let normalizedPivotAngle = 90 - angle;
+      let pivotSteer = new Curve().calculateSteeringLock(TinkerbotStalker.WHEEL_DISTANCE, angle, targetDistance);
+
+      this.steer(pivotSteer);
       let stalker = this;
       // make sure to wait to give the pivot time to steer
       setTimeout(function() {

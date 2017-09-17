@@ -41,10 +41,7 @@ exports.LaserScan = class LaserScan {
             let averageAngle = this.calcAverageAngle(targetAngle);
 
             if (averageAngle > -1) {
-              let targetAngle = 180 - averageAngle;
-              angle = new Curve().calculateSteeringLock(angle);
-
-              this.stalkerbot.move(180 - averageAngle);
+              this.stalkerbot.move(180 - averageAngle, targetDistance);
             } else {
               // we do nothing and wait for more hits. Maybe the target moved.
             }
