@@ -2,7 +2,7 @@ let { Tinkerbot } = require('./base');
 let { InfraredSensor } = require('./modules/sensors/infrared_sensor');
 let { Motor } = require('./modules/actors/motor');
 let { Pivot } = require('./modules/actors/pivot');
-let { Curve } = require('./utils/curve');
+let { Curve } = require('../utils/curve');
 
 class TinkerbotStalker extends Tinkerbot {
   constructor(id) {
@@ -14,14 +14,8 @@ class TinkerbotStalker extends Tinkerbot {
 
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
-<<<<<<< HEAD
-    infrared_sensor.subscribe((payload) =>
-      // TODO this logic is incomplete / inverted. Probably also related with the conversion function?
-      if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
-=======
     infrared_sensor.subscribe((payload) => {
       if (payload >= 100) {
->>>>>>> 907aeb84690531ebf28521a73f86c7d0465586b7
         this.isFrontClear = false;
         this.stop();
       }
