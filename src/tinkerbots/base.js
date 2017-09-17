@@ -33,7 +33,7 @@ exports.Tinkerbot = class {
 
   getModule(type, id) {
     this.modules.forEach(module => {
-      if (type === module.TYPE && id === module.id) {
+      if (type === module.constructor.TYPE && id === module.id) {
         return module;
       }
     });
@@ -44,7 +44,7 @@ exports.Tinkerbot = class {
   getModules(type) {
     let modules = [];
     this.modules.forEach(module => {
-      if (type === module.TYPE) {
+      if (type === module.constructor.TYPE) {
         modules.push(module);
       }
     });
