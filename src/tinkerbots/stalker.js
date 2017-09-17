@@ -14,6 +14,10 @@ class TinkerbotStalker extends Tinkerbot {
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
     infrared_sensor.subscribe((payload) => {
+      if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
+        this.isFrontClear = false;
+        this.stop();
+      }
     });
     let pivot = new Pivot(0, this);
     let motor1 = new Motor(0, this);
@@ -29,17 +33,25 @@ class TinkerbotStalker extends Tinkerbot {
     //process.exit();
     if (this.isFrontClear && !this.isStalking) {
       this.isStalking = true;
-      let pivots = this.getModules(Pivot.TYPE);
-      pivots.forEach(pivot => {pivot.publish('angle', angle);});
+      this.steer(angle);
       let stalker = this;
       // make sure to wait to give the pivot time to steer
       setTimeout(function() {
-        let motors = stalker.getModules(Motor.TYPE);
-        motors.forEach(motor => {
-          motor.publish('speed', '50');
-        });
+        this.start();
       }, 5000);
     }
+  }
+
+  steer(angle) {
+    let pivots = this.getModules(Pivot.TYPE);
+    pivots.forEach(pivot => {pivot.publish('angle', angle);});
+  }
+
+  start() {
+    let motors = stalker.getModules(Motor.TYPE);
+    motors.forEach(motor => {
+      motor.publish('speed', '50');
+    });
   }
 
   stop() {

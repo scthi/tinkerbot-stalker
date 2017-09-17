@@ -6,6 +6,7 @@ class InfraredSensor extends BaseSensor {
   }
 
   convertPayloadToMillimeters(payload) {
+    // TODO FIXME if I got it right, 180 is actually close to the value for nearest objects, ~6 means nothing in front
     return payload / 3.6; // 180 = 50mm
   }
 }
