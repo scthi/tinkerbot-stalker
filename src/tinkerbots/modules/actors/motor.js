@@ -22,7 +22,7 @@ class Motor extends BaseActor {
 
   __adjustSpeed(value) {
     this.publish('speed', value);
-    this.currentSpeed = speed;
+    this.currentSpeed = value;
   }
 }
 
