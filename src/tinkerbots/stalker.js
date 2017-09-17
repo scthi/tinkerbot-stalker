@@ -14,9 +14,14 @@ class TinkerbotStalker extends Tinkerbot {
 
   init() {
     let infrared_sensor = new InfraredSensor(0, this);
+<<<<<<< HEAD
     infrared_sensor.subscribe((payload) =>
       // TODO this logic is incomplete / inverted. Probably also related with the conversion function?
       if (infrared_sensor.convertPayloadToMillimeters(payload) <= TinkerbotStalker.SECURITY_OFFSET) {
+=======
+    infrared_sensor.subscribe((payload) => {
+      if (payload >= 100) {
+>>>>>>> 907aeb84690531ebf28521a73f86c7d0465586b7
         this.isFrontClear = false;
         this.stop();
       }
@@ -28,19 +33,17 @@ class TinkerbotStalker extends Tinkerbot {
 
   move(angle, targetDistance) {
     if (angle < 55 || angle > 120) {
-      console.log('not driving a hard angle (' ,anlge, ')');
+      console.log(`not driving a hard angle (' ,anlge, ')`);
       return;
     }
 
-    //process.exit();
+    // process.exit();
     if (this.isFrontClear && !this.isStalking) {
       this.isStalking = true;
-
       let normalizedPivotAngle = 90 - angle;
       let pivotSteer = new Curve().calculateSteeringLock(TinkerbotStalker.WHEEL_DISTANCE, angle, targetDistance);
 
       this.steer(pivotSteer);
-      let stalker = this;
       // make sure to wait to give the pivot time to steer
       setTimeout(function() {
         this.start();
@@ -50,13 +53,15 @@ class TinkerbotStalker extends Tinkerbot {
 
   steer(angle) {
     let pivots = this.getModules(Pivot.TYPE);
-    pivots.forEach(pivot => {pivot.publish('angle', angle);});
+    pivots.forEach(pivot => {
+      pivot.publish('angle', angle);
+    });
   }
 
   start() {
-    let motors = stalker.getModules(Motor.TYPE);
+    let motors = this.getModules(Motor.TYPE);
     motors.forEach(motor => {
-      motor.publish('speed', '50');
+      motor.publish('speed', 70);
     });
   }
 

@@ -23,7 +23,7 @@ describe('InfraredSensor', () => {
   });
 
   describe('convertPayloadToMillimeters', () => {
-    it('converts payload correctly to mm', () => {
+    xit('converts payload correctly to mm', () => {
       expect(modul.convertPayloadToMillimeters(180)).to.equal(50);
     });
   });
