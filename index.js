@@ -5,9 +5,6 @@ let { LaserScan } = require("./src/utils/laser_scan");
 let tinkerbot = new TinkerbotStalker(0);
 console.log(`Created a tinkerbot with id ${tinkerbot.id}`);
 let ir_sensor = new InfraredSensor(0, tinkerbot);
-ir_sensor.subscribe((payload) => {
-  console.log(`InfraredSensor payload: ${payload}`);
-});
 tinkerbot.start();
 
  // let laserScan = new LaserScan(tinkerbot);

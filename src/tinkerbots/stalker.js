@@ -22,15 +22,17 @@ class TinkerbotStalker extends Tinkerbot {
   initInfraredSensor() {
     let infrared_sensor = new InfraredSensor(0, this);
     infrared_sensor.subscribe((payload) => {
-      let distances = infrared_sensor.determineDistance(payload);
-      let threshold = 120;
-      let timesThresholdReached = distances.reduce((previous, distance) => {
-        return previous + distance;
-      }, 0);
-      if (timesThresholdReached >= threshold) {
-        this.isFrontClear = false;
-        this.stop();
-      }
+      // let distances = infrared_sensor.determineDistance(payload);
+      // let threshold = 70;
+      // console.log(infrared_sensor.payloads);
+      // // console.log(infrared_sensor.averagePayloads);
+      // distances.forEach((distance) => {
+      console.log(payload);
+        if (parseInt(payload) >= 70) {
+          this.isFrontClear = false;
+          this.stop();
+          return;
+        }
     });
   }
 
@@ -72,7 +74,7 @@ class TinkerbotStalker extends Tinkerbot {
   start() {
     let motors = this.getModules(Motor.TYPE);
     motors.forEach(motor => {
-      motor.speedUpBy(20);
+      motor.speedUpBy(15);
     });
   }
 

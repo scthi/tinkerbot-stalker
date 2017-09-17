@@ -13,7 +13,7 @@ exports.BaseSensor = class extends BaseModule {
     this.broker.subscribe(this.getTopic());
     this.broker.on('message', (topic, message, packet) => {
       if (this.getTopic() === packet.topic) {
-        callback(packet.payload);
+        callback(JSON.parse(packet.payload.toString()));
       }
     });
   }

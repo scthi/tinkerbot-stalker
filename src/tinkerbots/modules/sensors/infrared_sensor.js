@@ -9,7 +9,7 @@ class InfraredSensor extends BaseSensor {
 
   determineDistance(payload) {
     this.currentPayload = payload;
-    this.handleFIFO(this.payloads, payload, 5);
+    this.handleFIFO(this.payloads, payload, 3);
     let averagePayload = this.calculateAverageOfArray(this.payloads);
     this.handleFIFO(this.averagePayloads, averagePayload, 3); // DISCUSS: maybe use for tendency?
     return this.averagePayloads;
@@ -17,16 +17,17 @@ class InfraredSensor extends BaseSensor {
 
   handleFIFO(array, value, maxValues) {
     if(array.length >= maxValues) {
-      this.payloads.shift();
-      this.payloads.push(value);
+      array.shift();
     }
+    array.push(value);
   }
 
   calculateAverageOfArray(array) {
-    let sum = array.reduce(function(sum, value) {
-      return sum + value;
+    let total = array.reduce(function(sum, value) {
+      return sum + parseInt(value);
     }, 0);
-    let average =  sum / array.length;
+    let average = total / array.length;
+    console.log(average);
     return average;
   }
 }
